@@ -1,16 +1,8 @@
-import {createStore, applyMiddleware} from 'redux';
-import rootReducer from '../reducers/rootReducer';
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
-import thunk from 'redux-thunk';
+// dynamic imports aren't supported by ES6
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./store_prod');
+} else {
+  module.exports = require('./store_dev');
+}
 
-
-const configureStore = initialState => createStore(
-  rootReducer,
-  initialState,
-  applyMiddleware(
-    thunk,
-    reduxImmutableStateInvariant()
-  )
-);
-
-export default configureStore();
+//no default export here, exlint will complain
